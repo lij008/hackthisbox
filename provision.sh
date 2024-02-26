@@ -4,50 +4,52 @@
 DB_PASS=Myzkfuv9E4ic
 
 # Install Git.
-yum install -y git
+sudo apt install -y git
 
 # Clone website into web root.
-rm -rf /var/www/*
-git clone https://github.com/lambdacasserole/hack-this.git /var/www
+sudo rm -rf /var/www/*
+sudo git clone https://github.com/lambdacasserole/hack-this.git /var/www
 
 # Install Apache.
-yum install -y httpd
-service httpd start
+sudo apt install -y apache2
+sudo service apache2 start
 
 # Install MariaDB.
-yum install -y mariadb-server
-service mariadb start
+sudo apt install -y mariadb-server
+sudo service mariadb start
 
 # Install PHP.
-yum install -y php
-yum install -y php-mysqli
-service httpd restart
+sudo apt install -y php
+sudo apt install -y php-mysqli
+sudo service apache2 restart
 
 # Set up database.
-mysql -uroot < /var/www/sql/db.sql
+sudo mysql -uroot < /var/www/sql/db.sql
 
 # Secure MariaDB installation.
-yum install -y expect
-expect db_secure.exp $DB_PASS
+sudo apt install -y expect
+sudo expect /var/www/resources/db_secure.exp $DB_PASS
 
 # Set database password for website.
-sed -i -e "s/define('DB_PASS', '');/define('DB_PASS', '$DB_PASS');/g" /var/www/web/db_configuration.php
+sudo sed -i -e "s/define('DB_PASS', '');/define('DB_PASS', '$DB_PASS');/g" /var/www/web/db_configuration.php
 
 # Go to web root.
 cd /var/www
 
 # Create symlink into project web root.
-ln -s web html
+sudo ln -s web html
 
 # Install NPM.
-yum install -y epel-release
-curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
-yum install -y nodejs
+# yum install -y epel-release
+# curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
+sudo apt install -y nodejs
+sudo apt install -y npm
 
 # Run project build.
-npm install
+sudo npm install
 ./node_modules/.bin/bower install install --allow-root
 ./node_modules/.bin/gulp
 
 # Make web root owned by the Apache user.
-chown apache:apache /var/www/* -R
+# sudo chown apache:apache /var/www/* -R
+sudo chmod 777 /var/www/* -R
