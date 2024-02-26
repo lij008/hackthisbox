@@ -1,0 +1,32 @@
+#!/bin/expect
+
+# Check argument list.
+if {[llength $argv] != 1} {
+    # Error, bad argument list.
+    puts "usage: /db_secure.exp password"
+    exit 1
+}
+
+# Command-line arguments.
+set newpass [lindex $argv 0]
+
+# Spawn process.
+spawn mysql_secure_installation
+
+expect "?none):"
+send \r
+expect "\[Y/n\]"
+send "y\r"
+expect "assword:"
+send -- $newpass\r
+expect "assword:"
+send -- $newpass\r
+expect "\[Y/n\]"
+send "y\r"
+expect "\[Y/n\]"
+send "y\r"
+expect "\[Y/n\]"
+send "y\r"
+expect "\[Y/n\]"
+send "y\r"
+interact
