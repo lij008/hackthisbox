@@ -7,8 +7,8 @@ DB_PASS=Password_1
 sudo apt install -y git
 
 # Clone website into web root.
-sudo rm -rf /var/www/html/*
-sudo git clone https://github.com/lij008/hackthisbox.git /var/www/html/
+sudo rm -rf /var/www/*
+sudo git clone https://github.com/lij008/hackthisbox.git /var/www/
 
 # Install Apache.
 sudo apt install -y apache2
@@ -24,20 +24,20 @@ sudo apt install -y php-mysqli
 sudo service apache2 restart
 
 # Set up database.
-sudo mysql -uroot < /var/www/html/sql/db.sql
+sudo mysql -uroot < /var/www/sql/db.sql
 
 # Secure MariaDB installation.
 sudo apt install -y expect
-sudo expect /var/www/html/resources/db_secure.exp $DB_PASS
+sudo expect /var/www/resources/db_secure.exp $DB_PASS
 
 # Set database password for website.
-sudo sed -i -e "s/define('DB_PASS', '');/define('DB_PASS', '$DB_PASS');/g" /var/www/html/web/db_configuration.php
+sudo sed -i -e "s/define('DB_PASS', '');/define('DB_PASS', '$DB_PASS');/g" /var/www/web/db_configuration.php
 
 # Go to web root.
-cd /var/www/html
+cd /var/www
 
 # Create symlink into project web root.
-# sudo ln -s web html
+sudo ln -s web html
 
 # Install NPM.
 # yum install -y epel-release
