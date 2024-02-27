@@ -7,7 +7,7 @@ DB_PASS=Password_1
 sudo apt install -y git
 
 # Clone website into web root.
-sudo rm -rf /var/www/*
+sudo rm -R /var/www/html
 sudo git clone https://github.com/lij008/hackthisbox.git /var/www/
 
 # Install Apache.
