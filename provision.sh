@@ -7,7 +7,6 @@ DB_PASS=Password_1
 sudo apt install -y git
 
 # Clone website into web root.
-sudo rm -R /var/www/html
 sudo git clone https://github.com/lij008/hackthisbox.git /var/www/
 
 # Install Apache.
@@ -35,6 +34,7 @@ sudo sed -i -e "s/define('DB_PASS', '');/define('DB_PASS', '$DB_PASS');/g" /var/
 
 # Go to web root.
 cd /var/www
+sudo rm -R /var/www/html/
 
 # Create symlink into project web root.
 sudo ln -s web html
