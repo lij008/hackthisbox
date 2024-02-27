@@ -24,14 +24,14 @@ sudo apt install -y php-mysqli
 sudo service apache2 restart
 
 # Set up database.
-sudo mysql -uroot < /var/www/sql/db.sql
+sudo mysql -uroot < /var/www/html/sql/db.sql
 
 # Secure MariaDB installation.
 sudo apt install -y expect
-sudo expect /var/www/resources/db_secure.exp $DB_PASS
+sudo expect /var/www/html/resources/db_secure.exp $DB_PASS
 
 # Set database password for website.
-sudo sed -i -e "s/define('DB_PASS', '');/define('DB_PASS', '$DB_PASS');/g" /var/www/web/db_configuration.php
+sudo sed -i -e "s/define('DB_PASS', '');/define('DB_PASS', '$DB_PASS');/g" /var/www/html/web/db_configuration.php
 
 # Go to web root.
 cd /var/www/html
@@ -44,6 +44,7 @@ cd /var/www/html
 # curl --silent --location https://rpm.nodesource.com/setup_6.x | sudo bash -
 curl --silent --location https://deb.nodesource.com/setup_6.x | sudo bash -
 sudo apt install -y nodejs
+sudo apt install -y npm 
 
 
 # Run project build.
