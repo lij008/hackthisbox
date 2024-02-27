@@ -16,8 +16,6 @@ spawn mysql_secure_installation
 expect "?none):"
 send \r
 expect "\[Y/n\]"
-send "n\r"
-expect "\[Y/n\]"
 send "y\r"
 expect "assword:"
 send -- $newpass\r
