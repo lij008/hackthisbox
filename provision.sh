@@ -14,8 +14,9 @@ sudo apt install -y apache2
 sudo service apache2 start
 
 # Install MariaDB.
-sudo apt install -y mariadb-server
-sudo service mariadb start
+# sudo apt install -y mariadb-server
+sudo apt install -y mysql-server
+sudo service mysql start
 
 # Install PHP.
 sudo apt install -y php
